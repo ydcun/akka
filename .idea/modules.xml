@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/akka.iml" filepath="$PROJECT_DIR$/.idea/akka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/akka-samples-main-java/akka-sample-main-java.iml" filepath="$PROJECT_DIR$/akka-samples-main-java/akka-sample-main-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/akka-samples-remote-java/akka-sample-remote-java.iml" filepath="$PROJECT_DIR$/akka-samples-remote-java/akka-sample-remote-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/akka-quickstart-java/app.iml" filepath="$PROJECT_DIR$/akka-quickstart-java/app.iml" />
+    </modules>
+  </component>
+</project>
