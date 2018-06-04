@@ -14,7 +14,7 @@ public class CreationActor extends AbstractActor {
         calculator.tell(message, self());
       })
       .match(Op.MessageResult.class, result -> {
-        System.out.printf("Mul result: "+result.message);
+        System.out.println("Mul result: "+result.message);
         getContext().stop(sender());
       })
       .build();

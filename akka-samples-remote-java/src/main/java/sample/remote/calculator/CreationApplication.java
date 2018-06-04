@@ -20,17 +20,49 @@ public class CreationApplication {
 
   public static void startRemoteWorkerSystem() {
     ActorSystem system = ActorSystem.create("WorkerSystem",
-            ConfigFactory.load(("calculator")));
+            ConfigFactory.parseString(("akka {\n" +
+                    "\n" +
+                    "  actor {\n" +
+                    "    provider = remote\n" +
+                    "    warn-about-java-serializer-usage = off\n" +
+                    "  }\n" +
+                    "\n" +
+                    "  remote {\n" +
+                    "    netty.tcp {\n" +
+                    "      hostname = \"127.0.0.1\"\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "\n" +
+                    "  remote.netty.tcp.port = 2552\n" +
+                    "}")));
   }
 
   public static void startRemoteCreationSystem() {
     final ActorSystem system = ActorSystem.create("CreationSystem",
-        ConfigFactory.load("remotecreation"));
+        ConfigFactory.parseString("akka {\n" +
+                "  actor {\n" +
+                "    provider = remote\n" +
+                "    deployment {\n" +
+                "      \"/creationActor/*\" {\n" +
+                "        remote = \"akka.tcp://WorkerSystem@127.0.0.1:2552\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "    warn-about-java-serializer-usage = off\n" +
+                "  }\n" +
+                "  remote {\n" +
+                "    netty.tcp {\n" +
+                "      hostname = \"127.0.0.1\"\n" +
+                "    }\n" +
+                "  }\n" +
+                "  remote.netty.tcp.port = 2554\n" +
+                "}"));
     final ActorRef actor = system.actorOf(Props.create(CreationActor.class),
         "creationActor");
 
     final Random r = new Random();
-    actor.tell(new Op.Message("hi server!"), null);
+    for(int i=0; i<10;i++){
+      actor.tell(new Op.Message("hi server!"+i), null);
+    }
     system.dispatcher();
   }
 
